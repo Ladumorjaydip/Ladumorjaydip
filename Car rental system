@@ -1,0 +1,190 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+#include <stdexcept>  // for std::runtime_error
+using namespace std;
+
+// Base class Vehicle
+class Vehicle {
+protected:
+    string name;
+    int rentPerDay;
+
+public:
+    Vehicle(string n, int r) : name(n), rentPerDay(r) {}
+
+    string getName() const {
+        return name;
+    }
+
+    int getRentPerDay() const {
+        return rentPerDay;
+    }
+};
+
+// Derived class Car inherits from Vehicle
+class Car : public Vehicle {
+private:
+    int availableCars;
+
+public:
+    Car(string n, int r, int a) : Vehicle(n, r), availableCars(a) {}
+
+    int getAvailableCars() const {
+        return availableCars;
+    }
+
+    void reduceAvailableCars() {
+        if (availableCars > 0)
+            availableCars--;
+    }
+};
+
+struct Customer {
+    string name;
+    string carName;
+    int days;
+    int totalRent;
+};
+
+class CarRental {
+private:
+    vector<Car> cars;
+    vector<Customer> customers;
+    const int discountThreshold = 7;
+    const float discountRate = 0.10; // 10% discount for rentals of 7 days or more
+
+public:
+    CarRental() {
+        // Adding 12 cars, including Innova and Tavera
+        cars.push_back(Car("Scorpio", 500, 3));
+        cars.push_back(Car("Fortuner", 700, 2));
+        cars.push_back(Car("Creta", 400, 5));
+        cars.push_back(Car("Bolero", 300, 4));
+        cars.push_back(Car("XUV700", 800, 2));
+        cars.push_back(Car("Thar", 900, 1));
+        cars.push_back(Car("Harrier", 750, 3));
+        cars.push_back(Car("Brezza", 450, 6));
+        cars.push_back(Car("Nexon", 500, 4));
+        cars.push_back(Car("Seltos", 600, 3));
+        cars.push_back(Car("Innova", 650, 3)); // Newly added
+        cars.push_back(Car("Tavera", 550, 2)); // Newly added
+    }
+
+    void displayCarOptions() {
+        cout << "\nAvailable Cars:\n";
+        for (size_t i = 0; i < cars.size(); i++) {
+            cout << i + 1 << ". " << cars[i].getName()
+                 << " - Rs" << cars[i].getRentPerDay() << " per day "
+                 << "(Available: " << cars[i].getAvailableCars() << ")" << endl;
+        }
+    }
+
+    void rentCar() {
+        try {
+            string customerName;
+            int carChoice, rentalDays;
+
+            cout << "Enter customer name: ";
+            cin.ignore();
+            getline(cin, customerName);
+
+            displayCarOptions();
+            cout << "Select the car (enter the number): ";
+            cin >> carChoice;
+
+            if (carChoice < 1 || carChoice > cars.size()) {
+                throw invalid_argument("Invalid car selection.");
+            }
+
+            if (cars[carChoice - 1].getAvailableCars() <= 0) {
+                throw runtime_error("Sorry, the selected car is not available at the moment.");
+            }
+
+            // Input rental days (allowing up to 30 days)
+            cout << "Enter number of days (1 to 30): ";
+            cin >> rentalDays;
+
+            if (rentalDays < 1 || rentalDays > 30) {
+                throw out_of_range("Invalid number of days. Please rent for between 1 and 30 days.");
+            }
+
+            // Calculate total rent
+            int rentPerDay = cars[carChoice - 1].getRentPerDay();
+            int totalRent = rentPerDay * rentalDays;
+
+            // Apply discount if rental days are >= 7
+            if (rentalDays >= discountThreshold) {
+                totalRent = totalRent - (totalRent * discountRate);
+                cout << "10% discount applied for renting for " << rentalDays << " days!" << endl;
+            }
+
+            cars[carChoice - 1].reduceAvailableCars();
+
+            customers.push_back({customerName, cars[carChoice - 1].getName(), rentalDays, totalRent});
+
+            cout << "\n--- Rental Details ---" << endl;
+            cout << "Customer Name: " << customerName << endl;
+            cout << "Car Name: " << cars[carChoice - 1].getName() << endl;
+            cout << "Number of Days: " << rentalDays << endl;
+            cout << "Total Rent: Rs" << totalRent << endl;
+        } catch (const invalid_argument &e) {
+            cout << "Error: " << e.what() << endl;
+        } catch (const out_of_range &e) {
+            cout << "Error: " << e.what() << endl;
+        } catch (const runtime_error &e) {
+            cout << "Error: " << e.what() << endl;
+        } catch (...) {
+            cout << "An unexpected error occurred." << endl;
+        }
+    }
+
+    void showRentalHistory() {
+        if (customers.empty()) {
+            cout << "No rentals recorded yet." << endl;
+            return;
+        }
+
+        cout << "\n--- Rental History ---\n";
+        for (size_t i = 0; i < customers.size(); i++) {
+            cout << "Customer: " << customers[i].name << endl;
+            cout << "Car: " << customers[i].carName << endl;
+            cout << "Days: " << customers[i].days << endl;
+            cout << "Total Rent: Rs" << customers[i].totalRent << endl;
+            cout << "-----------------------\n";
+        }
+    }
+
+    void showMenu() {
+        int choice;
+        do {
+            cout << "\n--- Car Rental System ---" << endl;
+            cout << "1. Rent a Car" << endl;
+            cout << "2. Show Rental History" << endl;
+            cout << "3. Exit" << endl;
+            cout << "Enter your choice: ";
+            cin >> choice;
+
+            switch (choice) {
+            case 1:
+                rentCar();
+                break;
+            case 2:
+                showRentalHistory();
+                break;
+            case 3:
+                cout << "Exiting the system. Thank you!" << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+            }
+        } while (choice != 3);
+    }
+};
+
+int main() {
+    CarRental rentalSystem;
+    rentalSystem.showMenu();
+    return 0;
+}
