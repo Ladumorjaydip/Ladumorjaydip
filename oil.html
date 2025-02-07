@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary of Oils</title>
+    <link rel="stylesheet" href="styles5.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Types of Oils</h2>
+        <ul>
+            <li><a href="#" onclick="showOil('groundnut')">Groundnut Oil</a></li>
+            <li><a href="#" onclick="showOil('olive')">Olive Oil</a></li>
+            <li><a href="#" onclick="showOil('coconut')">Coconut Oil</a></li>
+            <li><a href="#" onclick="showOil('mustard')">Mustard Oil</a></li>
+            <li><a href="#" onclick="showOil('sunflower')">Sunflower Oil</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            <h1>Different Types of Oils</h1>
+            <a href="interface2.html" class="back-btn">Back</a>
+        </header>
+
+        <main>
+            <div id="oil-details">
+              <h2 id="text">Select an oil from the sidebar</h2>
+               <p id="tag">Click on an oil type to see its details.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Contact: +1234567890 | Email: info@glossary.com</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript to Show Oil Details -->
+    <script>
+        function showOil(oilType) {
+            const oilDetails = {
+                groundnut: {
+                    image: "groundnuts.jpg",
+                    name: "Groundnut Oil",
+                    price: "$100 per liter",
+                    description: "Groundnut oil, also known as peanut oil,<br>is a mild-tasting vegetable oil derived from peanuts.<br> It is commonly used for frying and cooking due to its high smoke point."
+                },
+                olive: {
+                    image: "olive.jpg",
+                    name: "Olive Oil",
+                    price: "$150 per liter",
+                    description: "Olive oil is a liquid fat obtained from olives.<br> It is widely used in Mediterranean cuisine and is known for its health benefits,<br> including heart health and anti-inflammatory properties."
+                },
+                coconut: {
+                    image: "coconut.jpg",
+                    name: "Coconut Oil",
+                    price: "$120 per liter",
+                    description: "Extracted from the meat of mature coconuts,<br> coconut oil is known for its numerous health benefits.<br> It is used in cooking, skincare, and hair care."
+                },
+                mustard: {
+                    image: "sunflower.jpg",
+                    name: "Mustard Oil",
+                    price: "$90 per liter",
+                    description: "Mustard oil is derived from mustard seeds and is<br>  commonly used in Indian and Bangladeshi cuisines.<br>  It has a strong, pungent aroma and is rich in monounsaturated fats."
+                },
+                sunflower: {
+                    image: "mustard.jpg",
+                    name: "Sunflower Oil",
+                    price: "$110 per liter",
+                    description: "Sunflower oil is extracted from sunflower seeds and is known for its<br>  light taste and high Vitamin E content. <br> It is commonly used for frying and baking."
+                }
+            };
+
+            // Get the selected oil details
+            let oil = oilDetails[oilType];
+
+            // Update the main content area
+            document.getElementById("oil-details").innerHTML = `
+                <img src="${oil.image}" alt="${oil.name}" style="width:250px; display:block; margin-bottom:10px;">
+                <h2>${oil.name}</h2>
+                <p><strong>Price:</strong> ${oil.price}</p>
+                <p><strong>Description:</strong> ${oil.description}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

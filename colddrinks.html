@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary of cold-drinks</title>
+    <link rel="stylesheet" href="styles5.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Types of cold-drinks</h2>
+        <ul>
+            <li><a href="#" onclick="showcolddrinks('sting')">sting</a></li>
+            <li><a href="#" onclick="showcolddrinks('maza')">maza</a></li>
+            <li><a href="#" onclick="showcolddrinks('sprite')">sprite</a></li>
+            <li><a href="#" onclick="showcolddrinks('jeera')">jeera</a></li>
+            <li><a href="#" onclick="showcolddrinks('lemmon')">lemmon</a></li>
+            <li><a href="#" onclick="showcolddrinks('thumpsup')">thumpsup</a></li>
+            
+        </ul>
+    </div>
+
+    <!-- Main Content --><div class="content">
+        <header>
+            <h1>Different Types of cold-drinks</h1>
+            <a href="interface2.html" class="back-btn">Back</a>
+        </header>
+
+        <main>
+            <div id="colddrinksdetails">
+                <h2 id="text">Select an cold-drinks  from the sidebar</h2>
+                <p id="tag">Click on an cold-drinks type to see its details.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Contact: +1234567890 | Email: info@glossary.com</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript to Show Oil Details -->
+    <script>
+        function showcolddrinks(colddrinksType) {
+            const colddrinksDetails = {
+                sting: {
+                    image: "sting.jpg",
+                    name: "sting",
+                    price: "$100 per liter",
+                    description: "Groundnut oil, also known as peanut oil,<br>is a mild-tasting vegetable oil derived from peanuts. It is commonly used for frying and cooking due to its high smoke point."
+                },
+                maza: {
+                    image: "maza.jpg",
+                    name: "maza",
+                    price: "$150 per liter",
+                    description: "Olive oil is a liquid fat obtained from olives. It is widely used in Mediterranean cuisine and is known for its health benefits, including heart health and anti-inflammatory properties."
+                },
+                sprite: {
+                    image: "sprite.jpg",
+                    name: "sprite",
+                    price: "$120 per liter",
+                    description: "Extracted from the meat of mature coconuts, coconut oil is known for its numerous health benefits. It is used in cooking, skincare, and hair care."
+                },
+                jeera: {
+                    image: "jeera.jpg",
+                    name: "jeera",
+                    price: "$90 per liter",
+                    description: "Mustard oil is derived from mustard seeds and is commonly used in Indian and Bangladeshi cuisines. It has a strong, pungent aroma and is rich in monounsaturated fats."
+                },
+                lemmon: {
+                    image: "lemmon.jpg",
+                    name: "lemmon",
+                    price: "$100 per liter",
+                    description: "Groundnut oil, also known as peanut oil,<br>is a mild-tasting vegetable oil derived from peanuts. It is commonly used for frying and cooking due to its high smoke point."
+                },
+               thumpsup: {
+                    image: "thumpsup.jpg",
+                    name: "thumpsup",
+                    price:"$100 per liter",
+                    description: "Groundnut oil, also known as peanut oil,<br>is a mild-tasting vegetable oil derived from peanuts. It is commonly used for frying and cooking due to its high smoke point."
+                }
+            };
+
+            // Get the selected oil details
+            let colddrinks = colddrinksDetails[colddrinksType];
+
+            // Update the main content area
+            document.getElementById("colddrinksdetails").innerHTML = `
+                <img src="${colddrinks.image}" alt="${colddrinks.name}" style="width:250px; display:block; margin-bottom:10px;">
+                <h2>${colddrinks.name}</h2>
+                <p><strong>Price:</strong> ${colddrinks.price}</p>
+                <p><strong>Description:</strong> ${colddrinks.description}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
