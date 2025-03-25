@@ -1,0 +1,42 @@
+
+.bg1color {
+    background-color: rgb(208, 231, 210);
+}
+
+.company {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.connect-space
+{
+    display: inline;
+    margin: 0px 15px;
+}
+.company-div {
+    margin: 5%;
+    padding: 3%;
+    border: 1px solid black;
+    border-radius: 25px;
+    background-color: rgb(255, 245, 224);
+}
+
+.company-div:hover {
+    background-color: rgb(247, 220, 185);
+    transition: background-color 0.5s; 
+}
+
+.company-div h3,
+.company-div p {
+    background-color: inherit;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: #ff0000;
+    transform: scale(1.1, 1.1);
+    transition: transform 1s;
+}

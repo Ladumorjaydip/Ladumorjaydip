@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sign-in</title>
+<link rel="stylesheet" href="css/styles-sign-in.css">
+<script src="https://kit.fontawesome.com/b5f74f45dd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+	<div class="form-box">
+		<h1 id="title">Sign up</h1>
+		<form>
+			<div class="input-group">
+				<div class="input-field" id="namefield">
+					<i class="fa-solid fa-user"></i>
+					<input type="text" placeholder="Corporation's Name">
+				</div>
+				
+				<div class="input-field">
+					<i class="fa-solid fa-envelope"></i>
+					<input type="email" placeholder="Eamil">
+				</div>
+				
+				<div class="input-field">
+					<i class="fa-solid fa-lock"></i>
+					<input type="password" placeholder="Password">
+				</div>
+				<p>
+					Forgot password ?<a href="#">Click here!</a>
+				</p>
+			</div>
+			<div class="btn-field">
+				<button type="button" id="signupbtn">Sign Up</button>
+				<button type="button" id="signinbtn" class="disable">Sign In</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+let signupbtn =document.getElementById("signupbtn");
+let signinbtn =document.getElementById("signinbtn");
+let namefield =document.getElementById("namefield");
+let title =document.getElementById("title");
+
+signinbtn.onclick = function(){
+namefield.style.maxHeight= "0";
+title.innerHTML = "Sign In";
+signupbtn.classList.add("disable");
+signinbtn.classList.remove("disable");
+}
+
+signupbtn.onclick = function(){
+namefield.style.maxHeight= "60px";
+title.innerHTML = "Sign Up";
+signupbtn.classList.remove("disable");
+signinbtn.classList.add("disable");
+}
+</script>
+</body>
+</html>
